@@ -1,6 +1,6 @@
 .cards {
-    padding: 4rem;
-    background: #fff;
+    padding: 1rem;
+    background: #706fd3;
   }
   
   h1 {
@@ -9,16 +9,21 @@
   
   .cards__container {
     display: flex;
-    flex-flow: column;
-    align-items: center;
-    max-width: 1120px;
-    width: 90%;
+    /* flex-flow: column;
+    align-items: center; */
+    /* max-width: 1120px;
+    width: 90%; */
+    max-width: 1500px;
+    width: 100%;
     margin: 0 auto;
   }
   
   .cards__wrapper {
-    position: relative;
-    margin: 50px 0 45px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    /* position: relative; */
+    /* margin: 50px 0 50px; */
   }
   
   .cards__items {
@@ -27,9 +32,12 @@
   
   .cards__item {
     display: flex;
-    flex: 1;
-    margin: 0 1rem;
+    /* flex: 1; */
+    margin: 1rem 1rem 0rem 1rem;
     border-radius: 10px;
+    /* width: 300px; */
+    /* margin: 1rem; */
+    width: 300px;
   }
   
   .cards__item__link {
@@ -90,11 +98,13 @@
   }
   
   .cards__item__info {
+    background-color: #474787;
     padding: 20px 30px 30px;
   }
   
   .cards__item__text {
-    color: #252e48;
+    /* color: #252e48; */
+    color: #f1f2f6;
     font-size: 18px;
     line-height: 24px;
   }
