@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './CourseCardItem.css';
 
 function CourseCardItem(props) {
 
@@ -8,10 +9,12 @@ function CourseCardItem(props) {
   const title = detail.name;
   const overview = detail.description;
 
+  const courseLink = `/courses/${detail.id}`;
+
   return (
     <>
       <div className="cards__item">
-        <Link className='cards__item__link' to={props.path}>
+        <Link className='cards__item__link' to={courseLink}>
           <figure className='cards__item__pic-wrap' data-category={Object.keys(detail.categories).map((category) => detail.categories[category].name)}>
             <img
               className='cards__item__img'
