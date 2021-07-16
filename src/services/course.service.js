@@ -1,12 +1,14 @@
-import http from "../http-common";
+import firebase from "../firebase";
+
+const db = firebase.collection("/courses");
 
 class CourseDataService {
-  getAll(params) {
-    return http.get("/courses", { params });
+  getAll() {
+    return db.get();
   }
 
   getCourseById(params) {
-    return http.get("/course", { params });
+    return db.doc(params).get();
   }
 }
 

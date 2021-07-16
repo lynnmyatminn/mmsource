@@ -1,49 +1,50 @@
-import React, { Component } from 'react';
-import '../../App.css';
-import Cards from '../Cards';
-import HeroSection from '../HeroSection';
-import Footer from '../Footer';
-import CourseDataService from '../../services/course.service';
+import React, { Component } from "react";
+import "../../App.css";
+import Cards from "../Cards";
+import HeroSection from "../HeroSection";
+import Footer from "../Footer";
+import CourseDataService from "../../services/course.service";
 
 class Home extends Component {
-
   constructor() {
     super();
     this.state = {
       data: [],
-      loading: true
+      loading: true,
     };
   }
 
   componentDidMount() {
-    console.log('Home Class Component is mounted.');
+    console.log("Home Class Component is mounted.");
     this.retrieveCourses();
   }
 
   retrieveCourses() {
     CourseDataService.getAll()
-      .then(response => {
-        this.setState({
-            data: response.data.results,
-            loading: false
+      .then((snapShot) => {
+        var items = [];
+        snapShot.forEach(function (doc) {
+          items.push({ id: doc.id, ...doc.data() });
         });
-        console.log(response.data.results);
+        this.setState({
+          data: items,
+          loading: false,
+        });
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
         this.setState({ data: null, loading: false });
       });
   }
 
   render() {
-
     const { data } = this.state;
     const { loading } = this.state;
 
     let view = <div />;
 
     if (!loading && data.length >= 1) {
-      view = <Cards courses={data} />
+      view = <Cards courses={data} />;
       // return (
       //   <>
       //     <Cards />
@@ -68,9 +69,7 @@ class Home extends Component {
       view = (
         <div className="col-lg-12">
           <div className="text-center">
-            <button className="btn jumboButton">
-              Could not get Courses
-            </button>
+            <button className="btn jumboButton">Could not get Courses</button>
           </div>
         </div>
       );
@@ -93,10 +92,8 @@ class Home extends Component {
         {view}
         <Footer />
       </>
-    )
+    );
   }
-
-
 }
 
 // function Home() {
