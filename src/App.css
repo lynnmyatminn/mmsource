@@ -100,8 +100,23 @@ h1 {
   height: 100%;
 }
 
-.session__list {
+.session__root {
+  width: '100%';
+  max-width: 360;
+  background-color: inherit;
+  position: 'relative';
+  overflow: 'auto';
+  max-height: 360;
+  color: orange
+}
 
+.session__list {
+  background-color: inherit;
+}
+
+.session__list > ul {
+  background-color: inherit;
+  padding: 0;
 }
 
 .react__player {

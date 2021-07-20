@@ -4,14 +4,46 @@ import "../../App.css";
 import Footer from "../Footer";
 import CourseDataService from "../../services/course.service";
 
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+
+    // const useStyles = makeStyles((theme) => ({
+    //   root: {
+    //     width: '100%',
+    //     maxWidth: 360,
+    //     backgroundColor: theme.palette.background.paper,
+    //     position: 'relative',
+    //     overflow: 'auto',
+    //     maxHeight: 400,
+    //     color: 'black'
+    //   },
+    //   listSection: {
+    //     backgroundColor: 'inherit',
+    //     // backgroundColor: 'blue',
+    //   },
+    //   ul: {
+    //     backgroundColor: 'inherit',
+    //     padding: 0,
+    //   },
+    // }));
+
 class CourseDetail extends Component {
+
+
+
   constructor(props) {
     super(props);
     this.state = {
       data: {},
       loading: true,
+      videoURL: ''
     };
   }
+
+
 
   componentDidMount() {
     console.log("course detail is mounted.");
@@ -24,16 +56,24 @@ class CourseDetail extends Component {
         this.setState({
           data: { id: snaptShot.id, ...snaptShot.data() },
           loading: false,
+          videoURL: ''
         });
       })
       .catch((e) => {
-        this.setState({ data: null, loading: false });
+        this.setState({ data: null, loading: false, videoURL: '' });
       });
+  }
+
+  itemClickHandler = (url) => {
+    this.setState({ videoURL: url });
+    console.log(url);
   }
 
   render() {
     const { data } = this.state;
     const { loading } = this.state;
+    const {videoURL} = this.state;
+    // const classes = useStyles();
 
     let view = <div />;
 
@@ -55,7 +95,8 @@ class CourseDetail extends Component {
                 <div className="player__wrapper">
                   {/* <ReactPlayer className='react__player' controls={true} url='https://www.youtube.com/watch?v=ysz5S6PUM-U' width='100%' height='480px' /> */}
                   <iframe
-                    src="https://streamtape.com/e/3D6Ae0mkJyIdw7r/1._Introduction.mp4"
+                    // src="https://streamtape.com/e/3D6Ae0mkJyIdw7r/1._Introduction.mp4"
+                    src={videoURL}
                     width="100%"
                     height="480"
                     allowfullscreen
@@ -67,26 +108,23 @@ class CourseDetail extends Component {
                 </div>
               </div>
 
-              {/* session twe d mhar htae mal */}
               <div className="coursedetail__item">
                 <div className="session__wrapper">
                   <div>Course Content</div>
-                  <ul className="session__list">
+                  <List className="session__root">
                     {data.sections.map((section, i) => (
-                      <li key={i}>
-                        {section.name}
+                      <li key={i} className="session__list">
+                        <ListSubheader>{section.name}</ListSubheader>
                         <ul>
-                          {section.video.map((vid, i) => (
-                            <li key={i}>
-                              <div>{vid.name}</div>
-
-                              <div>{vid.embedcode}</div>
-                            </li>
+                          {section.video.map((item, i) => (
+                            <ListItem key={i} button>
+                              <ListItemText onClick={() => this.itemClickHandler(item.embedcode)} primary={item.name} />
+                            </ListItem>
                           ))}
                         </ul>
                       </li>
                     ))}
-                  </ul>
+                  </List>
                 </div>
               </div>
             </div>
